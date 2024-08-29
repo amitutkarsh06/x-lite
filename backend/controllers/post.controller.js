@@ -102,13 +102,15 @@ export const likeUnlikePost = async (req, res) => {
             return res.status(404).json({ error: "post not found" });
         }
 
-        const userLikedPost = await Post.likes.includes(userId);
+        const userLikedPost = post.likes.includes(userId);
 
         if (userLikedPost) {
             //unlike post
             await Post.updateOne({ _id: postId }, { $pull: { likes: userId } });
             await User.updateOne({ _id: userId }, { $pull: { likedPosts: postId } });
-            res.status(200).json({ message: "post unliked successfully" });
+
+            const updatedLikes = post.likes.filter((id) => id.toString() !== userId.toString());
+            res.status(200).json(updatedLikes);
         }
         else {
             //like a post
@@ -124,7 +126,7 @@ export const likeUnlikePost = async (req, res) => {
             })
             await notification.save();
 
-            res.status(200).json({ message: "post liked successfully" });
+            res.status(200).json(post.likes);
         }
 
     } catch (error) {

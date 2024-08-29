@@ -52,7 +52,7 @@ export const followUnfollowUser = async (req, res) => {
 
             const notification = new Notification({
                 type: 'follow',
-                from: req.User._id,
+                from: req.user._id,
                 to: userToFollow._id
             })
             

@@ -9,7 +9,7 @@ export const createPost = async (req, res) => {
         const { text } = req.body;
         let { img } = req.body;
 
-        const userId = user._id.toString();
+        const userId = req.user._id.toString();
 
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ error: "user not found" });
@@ -24,7 +24,7 @@ export const createPost = async (req, res) => {
         }
         
         const newPost = new Post({
-            user: userId.
+            user: userId,
                 text,
             img
         });
@@ -46,7 +46,7 @@ export const deletePost = async (req, res) => {
 
         if (!post) return res.status(404).json({ error: "post not found" });
 
-        if (post.user.toString() !== req.user._id) {
+        if (post.user.toString() !== req.user._id.toString()) {
             return res.status(401).json({ error: "you are not authorized to delete the post" });
         }
 

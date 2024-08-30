@@ -89,7 +89,7 @@ const ProfilePage = () => {
                 <div className="flex flex-col">
                   <p className="font-bold text-lg">{user?.fullname}</p>
                   <span className="text-sm text-slate-500">
-                    {POSTS?.length} posts
+                    {4} posts
                   </span>
                 </div>
               </div>
@@ -185,12 +185,12 @@ const ProfilePage = () => {
                       <>
                         <FaLink className="w-3 h-3 text-slate-500" />
                         <a
-                          href="https://youtube.com/@asaprogrammer_"
+                          href={user?.link}
                           target="_blank"
                           rel="noreferrer"
                           className="text-sm text-blue-500 hover:underline"
                         >
-                          youtube.com/@asaprogrammer_
+                          visit my channel
                         </a>
                       </>
                     </div>
